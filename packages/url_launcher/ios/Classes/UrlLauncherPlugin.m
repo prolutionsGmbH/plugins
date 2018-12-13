@@ -130,9 +130,7 @@
   _currentSession = [[FLTUrlLaunchSession alloc] initWithUrl:url withFlutterResult:result];
   [_viewController presentViewController:_currentSession.safari
                                 animated:YES
-                              completion:^void() {
-                                self->_currentSession = nil;
-                              }];
+                              completion:nil];
 }
 
 - (void)closeWebView:(NSString *)urlString result:(FlutterResult)result {
