@@ -1,5 +1,6 @@
 package io.flutter.plugins.firebasedynamiclinks;
 
+import android.content.Intent;
 import android.net.Uri;
 import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -60,8 +61,14 @@ public class FirebaseDynamicLinksPlugin implements MethodCallHandler {
   }
 
   private void handleRetrieveDynamicLink(final Result result) {
+    Intent intent = registrar.activity().getIntent();
+    Uri dynamicLinkUri = intent.getData();
+    if(dynamicLinkUri == null){
+      dynamicLinkUri = Uri.EMPTY;
+    }
+
     FirebaseDynamicLinks.getInstance()
-        .getDynamicLink(registrar.activity().getIntent())
+        .getDynamicLink(dynamicLinkUri)
         .addOnCompleteListener(
             registrar.activity(),
             new OnCompleteListener<PendingDynamicLinkData>() {
